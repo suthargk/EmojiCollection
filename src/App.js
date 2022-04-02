@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="App">
      <EmojiCategory className="emoji-categories" categories={catogeries} onSelectCategory={selectCategory}/>
-     <EmojiHub className="emoji-hub" allEmoji={allEmoji}/>
+     <EmojiHub className="emoji-hub" allEmoji={allEmoji} categories={catogeries}/>
      <EmojiView className="emoji-view"/>
     </div>
   );

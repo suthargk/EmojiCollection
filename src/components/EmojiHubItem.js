@@ -1,4 +1,4 @@
-
+import {v4 as uuid4} from 'uuid'
 
 
 export default function EmojiHubItem({className, emoji}) {
@@ -6,7 +6,7 @@ export default function EmojiHubItem({className, emoji}) {
        {emoji.unicode.map(code => {
         const emoji = code.slice(2).split(" ").map(item => parseInt(item, 16))
         const convertedEmoji = String.fromCodePoint.apply(null,emoji)  
-           return <span>{convertedEmoji}</span>
+           return <span key={uuid4()}>{convertedEmoji}</span>
        })}
     </li>
 }
