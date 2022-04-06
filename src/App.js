@@ -27,7 +27,9 @@ function App() {
   }, [])
 
   const selectCategory = useCallback((item) => {
+    // eslint-disable-next-line no-unused-vars
     const newEmojies = allEmoji.filter(emoji => emoji.category === item)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className="App">
