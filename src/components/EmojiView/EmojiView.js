@@ -1,8 +1,9 @@
 import SearchEmoji from './SearchEmoji'
+import "../../App.css"
 
 export default function EmojiView({className}) {
-    return <div className={className}>
-        <SearchEmoji className="search-emoji" id="search"/>
+    return <div className="emoji-view">
+        <SearchEmoji id="search"/>
     </div>
 }
 

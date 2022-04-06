@@ -125,13 +125,18 @@ li {
   margin-top: 15px;
 }
 
-.category {
+.emoji-categories-item {
   border-radius: 5px;
   cursor: pointer;
   padding: 10px 40px;
   margin-bottom: 5px;
 }
 
-.category:hover {
-  background-color: rgb(229 231 235);
+.emoji-categories-item:hover {
+  background-color: rgb(243 244 246);
 }
+
+.emoji-categories-item--active {
+  background-color: rgb(209 213 219);
+}
+

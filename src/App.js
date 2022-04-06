@@ -1,13 +1,18 @@
-import EmojiCategory from './components/EmojiCatergory'
-import EmojiHub from './components/EmojiHub'
-import EmojiView from './components/EmojiView'
+import EmojiCategory from './components/EmojiCategory/EmojiCatergory'
+import EmojiHub from './components/EmojiHub/EmojiHub'
+import EmojiView from './components/EmojiView/EmojiView'
 import './App.css';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 function App() {
   const [catogeries, setCatogeries] = useState([])
   const [allEmoji, setAllEmoji] = useState([])
+  
+  const [activeLink, setActiveLink] = useState("smileys and people")
+
+
+  console.log(activeLink)
   useEffect(() => {
     fetch('https://emojihub.herokuapp.com/api/all')
     .then(response => response.json())
@@ -21,14 +26,14 @@ function App() {
     }).catch(err => console.error(err))
   }, [])
 
-  const selectCategory = (item) => {
+  const selectCategory = useCallback((item) => {
     const newEmojies = allEmoji.filter(emoji => emoji.category === item)
-  }
+  }, [])
   return (
     <div className="App">
-     <EmojiCategory className="emoji-categories" categories={catogeries} onSelectCategory={selectCategory}/>
-     <EmojiHub className="emoji-hub" allEmoji={allEmoji} categories={catogeries}/>
-     <EmojiView className="emoji-view"/>
+     <EmojiCategory activeLink={activeLink} categories={catogeries} onSelectCategory={selectCategory}/>
+     <EmojiHub allEmoji={allEmoji} categories={catogeries} setActiveLink={setActiveLink}/>
+     <EmojiView/>
     </div>
   );
 }

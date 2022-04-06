@@ -1,9 +1,9 @@
-import "../App.css";
-import { ReactComponent as Check } from "../search.svg";
+import "../../App.css";
+import { ReactComponent as Check } from "../../search.svg";
 
 export default function SearchEmoji({ className, type="text", id }) {
   return (
-    <div className={className}>
+    <div className="search-emoji">
       <label className="search-emoji-label" htmlFor={id}>
         <Check height="20px" width="20px" />
       <input
