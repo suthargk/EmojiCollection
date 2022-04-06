@@ -21,6 +21,7 @@ export default memo(function EmojiHubList({ allEmoji, category, emojiHubRef, set
     };
     const observer = new IntersectionObserver(callbackObserver, option);
     observer.observe(emojiHubListRef.current);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emojiHubListRef]);
   return (
     <div style={{ position: "relative" }} ref={emojiHubListRef}>
