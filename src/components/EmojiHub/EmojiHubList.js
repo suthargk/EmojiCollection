@@ -3,26 +3,36 @@ import { v4 as uuid4 } from "uuid";
 import { useEffect, useRef, memo } from "react";
 import "../../App.css";
 
-export default memo(function EmojiHubList({ allEmoji, category, emojiHubRef, setActiveLink }) {
+export default memo(function EmojiHubList({
+  allEmoji,
+  category,
+  emojiHubRef,
+  setActiveLink,
+  clickedCategory
+}) {
   const filteredEmoji = allEmoji.filter((emoji) => emoji.category === category);
   const emojiHubListRef = useRef();
   useEffect(() => {
     const callbackObserver = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActiveLink(entry.target.children[0].textContent)
+          setActiveLink(category);
         }
       });
     };
     const option = {
       root: emojiHubRef.current,
       rootMargin: "0px 0px -100% 0px",
-      threshold: 0
+      threshold: 0,
     };
     const observer = new IntersectionObserver(callbackObserver, option);
     observer.observe(emojiHubListRef.current);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [emojiHubListRef]);
+    
+    if(clickedCategory === emojiHubListRef.current.children[0].textContent) {
+      emojiHubListRef.current.scrollIntoView({behavior: 'smooth'})
+    }
+    
+  }, [emojiHubListRef, emojiHubRef, setActiveLink, clickedCategory, category ]);
   return (
     <div style={{ position: "relative" }} ref={emojiHubListRef}>
       <div className="emoji-hub-list-title">{category}</div>
@@ -33,4 +43,4 @@ export default memo(function EmojiHubList({ allEmoji, category, emojiHubRef, set
       </ul>
     </div>
   );
-})
+});

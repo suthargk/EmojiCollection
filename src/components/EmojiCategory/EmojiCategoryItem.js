@@ -1,8 +1,9 @@
+
 import "../../App.css"
 
-export default function EmojiCategory({category, onSelectCategory, activeLink}) {
-    const activeClass = activeLink === category ? "emoji-categories-item--active" : ""
-    return <li className={`emoji-categories-item ${activeClass}`} onClick={() => onSelectCategory(category)}>
+export default function EmojiCategory({category, activeLink, onClickScrollTo}) {
+
+    return <li data-active={activeLink === category} className="emoji-categories-item" onClick={() => onClickScrollTo(category)}>
         {category}
     </li>
 }
