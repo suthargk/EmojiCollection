@@ -1,16 +1,18 @@
 import EmojiCategory from './components/EmojiCategory/EmojiCatergory'
 import EmojiHub from './components/EmojiHub/EmojiHub'
 import EmojiView from './components/EmojiView/EmojiView'
+import EmojiHubSearch from './components/EmojiHubSearch/EmojiHubSearch'
+
 import './App.css';
 
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [catogeries, setCatogeries] = useState([])
+  const [categories, setCategories] = useState([])
   const [allEmoji, setAllEmoji] = useState([])
-  
-  const [activeLink, setActiveLink] = useState(catogeries[0] ?? "smileys and people")
-  const [clickedCategory, setClickedCategory] = useState(catogeries[0] ?? 'smileys and people')
+  const [searchTerm, setSearchTerm] = useState("")
+  const [activeLink, setActiveLink] = useState(categories[0] ?? "smileys and people")
+  const [clickedCategory, setClickedCategory] = useState(categories[0] ?? 'smileys and people')
 
   useEffect(() => {
     fetch('https://emojihub.herokuapp.com/api/all')
@@ -21,7 +23,7 @@ function App() {
         obj[res.category] = res.category
       })
       setAllEmoji(result)
-      setCatogeries(Object.keys(obj))
+      setCategories(Object.keys(obj))
     }).catch(err => console.error(err))
   }, [])
 
@@ -29,11 +31,24 @@ function App() {
     setClickedCategory(categoryItem)
   }
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value)
+  }
+  const searchedEmojis = allEmoji.filter(emoji => emoji.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  console.log(searchedEmojis)
+  console.log(allEmoji)
   return (
     <div className="App">
-     <EmojiCategory activeLink={activeLink} categories={catogeries} onClickScrollTo={onClickScrollTo}/>
-     <EmojiHub allEmoji={allEmoji} categories={catogeries} setActiveLink={setActiveLink} clickedCategory={clickedCategory}/>
-     <EmojiView/>
+      {!searchTerm && 
+      <>
+      <EmojiCategory activeLink={activeLink} categories={categories} onClickScrollTo={onClickScrollTo}/>
+       <EmojiHub allEmoji={allEmoji} categories={categories} setActiveLink={setActiveLink} clickedCategory={clickedCategory}/>
+       </>}
+       {searchTerm && <>
+        <EmojiCategory categories={['Frequently Used']} activeLink="Frequently Used"/>
+        <EmojiHubSearch searchedEmojis={searchedEmojis}/>
+        </>}
+     <EmojiView handleSearch={handleSearch}  value={searchTerm}/>
     </div>
   );
 }

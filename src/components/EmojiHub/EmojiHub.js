@@ -7,7 +7,10 @@ export default memo(function EmojiHub({allEmoji, categories, setActiveLink, clic
     const emojiHubRef = useRef()
     return <div className="emoji-hub">
        <div className="emoji-hub-set" ref={emojiHubRef}>
-       {categories.map(category => <EmojiHubList key={uuid4()} category={category} allEmoji={allEmoji} emojiHubRef={emojiHubRef} setActiveLink={setActiveLink} clickedCategory={clickedCategory}/>)}
+       {categories.map(category => {
+           const filteredEmoji = allEmoji.filter((emoji) => emoji.category === category);
+           return <EmojiHubList key={uuid4()} category={category} filteredEmoji={filteredEmoji} emojiHubRef={emojiHubRef} setActiveLink={setActiveLink} clickedCategory={clickedCategory}/>
+       })}
        </div>
     </div>
 })
