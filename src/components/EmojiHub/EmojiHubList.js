@@ -8,15 +8,15 @@ export default memo(function EmojiHubList({
   filteredEmoji,
   emojiHubRef,
   setActiveLink,
-  clickedCategory
+  clickedCategory,
+  onSelectEmojiHandler,
 }) {
-  
   const emojiHubListRef = useRef();
   useEffect(() => {
     const callbackObserver = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActiveLink(category);
+          setActiveLink(category.categoryName);
         }
       });
     };
@@ -27,17 +27,21 @@ export default memo(function EmojiHubList({
     };
     const observer = new IntersectionObserver(callbackObserver, option);
     observer.observe(emojiHubListRef.current);
-    if(clickedCategory === emojiHubListRef.current.children[0].textContent) {
-      emojiHubListRef.current.scrollIntoView()
+    if (clickedCategory === category.categoryName) {
+      emojiHubListRef.current.scrollIntoView();
     }
-    
-  }, [emojiHubListRef, emojiHubRef, setActiveLink, clickedCategory, category ]);
+  }, [emojiHubListRef, emojiHubRef, setActiveLink, clickedCategory, category]);
   return (
     <div className="emoji-hub-set-main" ref={emojiHubListRef}>
-      <div className="emoji-hub-set-title">{category}</div>
+      <div className="emoji-hub-set-title">{category.categoryName}</div>
       <ul className="emoji-hub-set-list">
         {filteredEmoji.map((emoji) => (
-          <EmojiHubItem key={uuid4()} category={category} emoji={emoji} />
+          <EmojiHubItem
+            key={uuid4()}
+            category={category.categoryName}
+            emoji={emoji}
+            onSelectEmojiHandler={onSelectEmojiHandler}
+          />
         ))}
       </ul>
     </div>
