@@ -5,7 +5,8 @@ import "../../App.css"
 export default function EmojiView({handleSearch, value, setSearchTerm, selectedEmoji}) {
     return <div className="emoji-view">
         <SearchEmoji id="search" value={value} handleSearch={handleSearch} setSearchTerm={setSearchTerm}/>
-        <EmojiPreview selectedEmoji={selectedEmoji}/>
+    
+        {Object.keys(selectedEmoji).length !== 0 && <EmojiPreview selectedEmoji={selectedEmoji}/>}
     </div>
 }
 
