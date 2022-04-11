@@ -9,6 +9,7 @@ export default memo(function EmojiHubList({
   emojiHubRef,
   setActiveLink,
   clickedCategory,
+
   onSelectEmojiHandler,
 }) {
   const emojiHubListRef = useRef();
@@ -16,7 +17,9 @@ export default memo(function EmojiHubList({
     const callbackObserver = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          console.log(category.categoryName)
           setActiveLink(category.categoryName);
+
         }
       });
     };
