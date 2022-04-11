@@ -9,7 +9,6 @@ export default memo(function EmojiHubList({
   emojiHubRef,
   setActiveLink,
   clickedCategory,
-
   onSelectEmojiHandler,
 }) {
   const emojiHubListRef = useRef();

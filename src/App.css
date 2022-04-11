@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
@@ -105,18 +107,21 @@ li {
 }
 
 .emoji-categories {
-  margin-top: 15px;
+  margin: 0 15px;
+}
+.emoji-categories ul > * + *  {
+ margin-top: 8px;
 }
 
 .emoji-categories-item {
   border-radius: 5px;
   cursor: pointer;
   padding: 10px 40px;
-  margin-bottom: 5px;
-
+  /* width: 90%; */
   /* justify-content: center; */
   font-size: 14px;
-  /* align-items: center; */
+  display: flex;
+  align-items: center;
 }
 .emoji-categories-item svg {
   margin-right: 10px;
@@ -126,6 +131,15 @@ li {
   outline: 2px solid black;
 }
 
+.divider {
+  margin-left: -14px;
+  margin-right: -14px;
+}
+.divider span {
+  display: block;
+  max-width: 100%;
+  border-top: 0.1px solid rgb(203 213 225);
+}
 .emoji-categories-item[data-active="false"]:hover {
   background-color: rgb(243 244 246);
 }

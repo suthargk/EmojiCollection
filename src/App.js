@@ -1,7 +1,7 @@
 import EmojiCategory from "./components/EmojiCategory/EmojiCatergory";
 import EmojiHub from "./components/EmojiHub/EmojiHub";
 import EmojiView from "./components/EmojiView/EmojiView";
-import EmojiHubSearch from "./components/EmojiHubSearch/EmojiHubSearch";
+import EmojiHubSearchResult from "./components/EmojiHubSearchResult/EmojiHubSearchResult";
 
 import "./App.css";
 
@@ -83,7 +83,6 @@ function App() {
     fetch("https://emojihub.herokuapp.com/api/all")
       .then((response) => response.json())
       .then((result) => {
-        // const data = result.filter((res) => res.name.includes("type-"));
         setAllEmoji(result);
         setCategories(initialCategories);
       })
@@ -99,6 +98,7 @@ function App() {
   }, [])
 
   const handleSearch = (event) => {
+  
     setSearchTerm(event.target.value);
   };
   const searchedEmojis = allEmoji.filter(
@@ -134,7 +134,7 @@ function App() {
             ]}
             activeLink="Search Results"
           />
-          <EmojiHubSearch searchedEmojis={searchedEmojis} />
+          <EmojiHubSearchResult searchedEmojis={searchedEmojis} onSelectEmojiHandler={onSelectEmojiHandler}/>
         </>
       )}
       <EmojiView
