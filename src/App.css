@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: inherit;
 }
+
 html {
   box-sizing: border-box;
   height: 100%;
@@ -27,7 +28,7 @@ body {
 .App {
   display: flex;
   justify-content: space-between;
-  font-family: -apple-system, BlinkMacSystemFont,'Lato', "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, 'Lato', "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   margin: 200px auto;
   padding: 10px;
   width: 70%;
@@ -80,6 +81,7 @@ li {
   z-index: 1;
   top: 0;
   left: 0;
+  font-size: 14px;
   font-weight: 700;
   background-color: rgb(248 250 252/0.9);
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -113,7 +115,11 @@ li {
   margin-bottom: 5px;
   display: flex;
   /* justify-content: center; */
+  font-size: 14px;
   align-items: center;
+}
+.emoji-categories-item svg {
+  margin-right: 10px;
 }
 
 .emoji-categories-item:focus-within {

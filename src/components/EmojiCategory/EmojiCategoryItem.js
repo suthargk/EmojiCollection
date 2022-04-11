@@ -1,24 +1,14 @@
-// import { useEffect, useRef } from "react"
 import "../../App.css"
-import { ReactComponent as Check } from '../../svg/Activity.svg'
+import * as Icons from "../../svg";
 
 export default function EmojiCategory({category, activeLink, onClickScrollTo}) {
-    // const ImportedIconRef = useRef()
-    // useEffect(() => {
-    //     const importIcon = async () => {
-    //         try {
-    //             ImportedIconRef.current = (
-    //                 await import(`../../svg/${category}.svg`)
-    //             ).ReactComponent;
-    //         }
-    //         catch(err) {
-    //             console.error(err)
-    //         }
-    //     }
-    //     importIcon()
-    // }, [category])
+
+   const CategoryIcon = Icons[category.iconName];
+
     return <li data-active={activeLink === category.categoryName} className="emoji-categories-item" onClick={() => onClickScrollTo(category.categoryName)}>
-        <span><Check height="18px" width="18px" /></span>
+        {CategoryIcon && <CategoryIcon/>}
         <span>{category.categoryName}</span>
     </li>
 }
+
+// #A1A5AC

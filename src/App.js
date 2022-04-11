@@ -9,35 +9,49 @@ import { useCallback, useEffect, useState } from "react";
 const initialCategories = [
   {
     id: 1,
-    categoryName: "smileys and people",
+    categoryName: "frequently used",
+    iconName: "FrequentlyUsedIcon"
   },
+
   {
     id: 2,
-    categoryName: "animals and nature",
+    categoryName: "smileys and people",
+    iconName: "SmileysAndPeopleIcon"
   },
   {
     id: 3,
-    categoryName: "food and drink",
+    categoryName: "animals and nature",
+    iconName: "AnimalsAndNatureIcon"
   },
   {
     id: 4,
-    categoryName: "activities",
+    categoryName: "food and drink",
+    iconName: "FoodAndDrinkIcon"
   },
   {
     id: 5,
-    categoryName: "travel and places",
+    categoryName: "activities",
+    iconName: "ActivitiesIcon"
   },
   {
     id: 6,
-    categoryName: "objects",
+    categoryName: "travel and places",
+    iconName: "TravelAndPlacesIcon"
   },
   {
     id: 7,
-    categoryName: "symbols",
+    categoryName: "objects",
+    iconName: "ObjectsIcon"
   },
   {
     id: 8,
+    categoryName: "symbols",
+    iconName: "SymbolsIcon"
+  },
+  {
+    id: 9,
     categoryName: "flags",
+    iconName: "FlagsIcon"
   },
 ];
 function App() {
@@ -45,10 +59,10 @@ function App() {
   const [allEmoji, setAllEmoji] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeLink, setActiveLink] = useState(
-    categories[0] ?? "smileys and people"
+    categories[0]?.categoryName ?? "smileys and people"
   );
   const [clickedCategory, setClickedCategory] = useState(
-    categories[0] ?? "smileys and people"
+    categories[0]?.categoryName ?? "smileys and people"
   );
 
   const [selectedEmoji, setSelectedEmoji] = useState({})
@@ -64,7 +78,7 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
-  const onSelectEmojiHandler = useCallback( (convertedSelectedEmoji) => {
+  const onSelectEmojiHandler = useCallback((convertedSelectedEmoji) => {
       setSelectedEmoji({...convertedSelectedEmoji})
   }, [])
 
@@ -103,9 +117,9 @@ function App() {
         <>
           <EmojiCategory
             categories={[
-              { id: 9, categoryName: "Frequently Used" },
-              { id: 10, categoryName: "Search Result" },
+              { id: 10, categoryName: "Search Results", iconName: "SearchIcon" }
             ]}
+            activeLink="Search Results"
           />
           <EmojiHubSearch searchedEmojis={searchedEmojis} />
         </>
