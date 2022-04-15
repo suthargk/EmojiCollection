@@ -60,6 +60,7 @@ body {
   .App {
     width: 95%;
     flex-direction: column-reverse;
+    padding: 5px;
   }
 }
 
@@ -193,24 +194,6 @@ li {
   margin-top: 8px;
 }
 
-@media (max-width: 640px) {
-  .emoji-categories ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .emoji-categories ul > * + * {
-    margin: 0;
-  }
-  .emoji-categories ul > li span:first-child {
-    flex-basis: 11.11%;
-    margin-right: 0;
-  }
-  .emoji-categories ul > li span:last-child {
-    display: none;
-  }
-}
-
 .emoji-categories-item {
   border-radius: 5px;
   cursor: pointer;
@@ -219,6 +202,11 @@ li {
   display: flex;
   align-items: center;
 }
+
+.emoji-categories-item span:first-child {
+  margin-right: 10px;
+}
+
 @media (max-width: 1280px) {
   .emoji-categories-item {
     padding: 10px 30px;
@@ -231,11 +219,35 @@ li {
   }
 }
 
+@media (max-width: 640px) {
+  .emoji-categories ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .emoji-categories ul > * + * {
+    margin: unset;
+  }
+  .emoji-categories-item { 
+    padding: 8px;
+  }
 
-.emoji-categories-item span:first-child {
-  line-height: 0;
-  margin-right: 10px;
+  .emoji-categories-item:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  .emoji-categories-item span:first-child {
+    flex-basis: 11.11%;
+    margin-right: 0;
+    line-height: 0;
+  }
+
+  .emoji-categories-item span:last-child{
+    display: none;
+  }
 }
+
 
 .emoji-categories-item:focus-within {
   outline: 2px solid black;
