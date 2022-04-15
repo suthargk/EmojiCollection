@@ -58,12 +58,19 @@ li {
 .emoji-hub-set {
   height: 450px;
   border-radius: 5px;
-  overflow-y: scroll;
   box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-
 }
+.emoji-hub-set[data-result="true"] {
+  overflow-y: scroll;
+}
+.emoji-hub-set[data-result="false"] {
+  overflow-y: none;
+}
+
+
 .emoji-hub-set-main {
   position: relative;
+
 }
 
 .emoji-hub-set-main {
@@ -197,9 +204,6 @@ li {
   outline: none;
 }
 
-.emoji-view {
-
-}
 .emoji-preview {
   width: 100%;
   display: flex;
@@ -239,4 +243,18 @@ li {
   font-size: 14px;
   text-align: center;
   color: rgb(51 65 85);
+}
+
+.search-result-not-found {
+  width: 100%;
+  text-align: center;
+  margin: 150px 0;
+}
+.search-result-not-found--emoji {
+  font-size: 42px;
+}
+
+.search-result-not-found--error {
+  font-size: 16px;
+  color: rgb(71 85 105);
 }

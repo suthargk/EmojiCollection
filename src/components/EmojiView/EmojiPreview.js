@@ -6,7 +6,7 @@ const EmojiPreview = ({ selectedEmoji }) => {
         <div className="horizontal-box"></div>
         <div className="vertical-box"></div>
       </div>
-      <div className="emoji-sketch-name">{selectedEmoji?.emojiName?.split("≊")[0]}</div>
+      <div className="emoji-sketch-name">{selectedEmoji?.name?.split("≊")[0]}</div>
     </div>
   );
 };

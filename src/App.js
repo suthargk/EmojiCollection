@@ -2,77 +2,18 @@ import EmojiCategory from "./components/EmojiCategory/EmojiCatergory";
 import EmojiHub from "./components/EmojiHub/EmojiHub";
 import EmojiView from "./components/EmojiView/EmojiView";
 import EmojiHubSearchResult from "./components/EmojiHubSearchResult/EmojiHubSearchResult";
+import {initialCategories, initialfrequentlyUsed} from './components/initialEmojiData'
+import frequentlyUsedLRU from "./components/EmojiHub/frequentlyUsedLRU";
 
 import "./App.css";
 
 import { useCallback, useEffect, useState } from "react";
-const initialCategories = [
-  {
-    id: 1,
-    categoryName: "frequently used",
-    iconName: "FrequentlyUsedIcon"
-  },
 
-  {
-    id: 2,
-    categoryName: "smileys and people",
-    iconName: "SmileysAndPeopleIcon"
-  },
-  {
-    id: 3,
-    categoryName: "animals and nature",
-    iconName: "AnimalsAndNatureIcon"
-  },
-  {
-    id: 4,
-    categoryName: "food and drink",
-    iconName: "FoodAndDrinkIcon"
-  },
-  {
-    id: 5,
-    categoryName: "activities",
-    iconName: "ActivitiesIcon"
-  },
-  {
-    id: 6,
-    categoryName: "travel and places",
-    iconName: "TravelAndPlacesIcon"
-  },
-  {
-    id: 7,
-    categoryName: "objects",
-    iconName: "ObjectsIcon"
-  },
-  {
-    id: 8,
-    categoryName: "symbols",
-    iconName: "SymbolsIcon"
-  },
-  {
-    id: 9,
-    categoryName: "flags",
-    iconName: "FlagsIcon"
-  },
-];
 
-const initialfrequentlyUsed = [
-  {"name":"thumbs up sign ≊ thumbs up","category":"smileys and people","group":"body","htmlCode":["&#128077;"],"unicode":["U+1F44D"]},
-  {"name":"grinning face","category":"smileys and people","group":"face positive","htmlCode":["&#128512;"],"unicode":["U+1F600"]},
-  {"name":"face throwing a kiss","category":"smileys and people","group":"face positive","htmlCode":["&#128536;"],"unicode":["U+1F618"]},
-  {"name":"smiling face with heart-shaped eyes ≊ smiling face with heart-eyes","category":"smileys and people","group":"face positive","htmlCode":["&#128525;"],"unicode":["U+1F60D"]},
-  {"name":"smiling face with open mouth and tightly-closed eyes ≊ smiling face with open mouth ","category":"smileys and people","group":"face positive","htmlCode":["&#128518;"],"unicode":["U+1F606"]},
-  {"name":"smiling face with open mouth and cold sweat ≊ smiling face with open mouth ","category":"smileys and people","group":"face positive","htmlCode":["&#128517;"],"unicode":["U+1F605"]},
-  {"name":"face with stuck-out tongue and winking eye ≊ face with stuck-out tongue ","category":"smileys and people","group":"face neutral","htmlCode":["&#128540;"],"unicode":["U+1F61C"]},
-  {"name":"face with tears of joy","category":"smileys and people","group":"face positive","htmlCode":["&#128514;"],"unicode":["U+1F602"]},
-  {"name":"face screaming in fear","category":"smileys and people","group":"face negative","htmlCode":["&#128561;"],"unicode":["U+1F631"]},
-  {"name":"pouting face","category":"smileys and people","group":"face negative","htmlCode":["&#128545;"],"unicode":["U+1F621"]},
-  {"name":"see-no-evil monkey ≊ see-no-evil","category":"smileys and people","group":"monkey face","htmlCode":["&#128584;"],"unicode":["U+1F648"]},
-  {"name":"pile of poo","category":"smileys and people","group":"creature face","htmlCode":["&#128169;"],"unicode":["U+1F4A9"]}
-]
 function App() {
   const [categories, setCategories] = useState([]);
   const [allEmoji, setAllEmoji] = useState([]);
-  const [frequentlyUsed, setFrequentlyUsed] = useState(initialfrequentlyUsed)
+  const [frequentlyUsed, setFrequentlyUsed] = useState(JSON.parse(localStorage.getItem('frequently')) ?? initialfrequentlyUsed)
   const [searchTerm, setSearchTerm] = useState("");
   const [activeLink, setActiveLink] = useState();
   const [clickedCategory, setClickedCategory] = useState();
@@ -90,8 +31,9 @@ function App() {
   }, []);
 
   const onSelectEmojiHandler = useCallback((convertedSelectedEmoji) => {
+    frequentlyUsedLRU(frequentlyUsed, {...convertedSelectedEmoji})
       setSelectedEmoji({...convertedSelectedEmoji})
-  }, [])
+  }, [frequentlyUsed])
 
   const onClickScrollTo = useCallback((categoryItem) => {
     setClickedCategory(categoryItem);

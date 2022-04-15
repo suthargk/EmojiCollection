@@ -6,8 +6,8 @@ export function convertUnicode(emoji) {
   let emojis = emoji.unicode.map(code => {
     return [...code.slice(2).split(" ").map(item => parseInt(item, 16))]
    })
-   const convertedEmoji =  String.fromCodePoint.apply(null,[...emojis])
-   const obj = {emojiName: emoji.name, convertedEmoji}
+   const convertedEmoji = String.fromCodePoint.apply(null,[...emojis])
+   const obj = {...emoji, convertedEmoji}
    return obj;
 }
 export default memo(function EmojiHubItem({emoji, onSelectEmojiHandler}) {
