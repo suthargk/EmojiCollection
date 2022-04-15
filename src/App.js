@@ -6,9 +6,7 @@ import {initialCategories, initialfrequentlyUsed} from './components/initialEmoj
 import frequentlyUsedLRU from "./components/EmojiHub/frequentlyUsedLRU";
 
 import "./App.css";
-
 import { useCallback, useEffect, useState } from "react";
-
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -24,7 +22,9 @@ function App() {
     fetch("https://emojihub.herokuapp.com/api/all")
       .then((response) => response.json())
       .then((result) => {
-        setAllEmoji(result);
+        console.log(result)
+        const emojis = result.filter(res => !res.name.includes("type-"))
+        setAllEmoji(emojis);
         setCategories(initialCategories);
       })
       .catch((err) => console.error(err));

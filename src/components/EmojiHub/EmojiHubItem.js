@@ -12,7 +12,7 @@ export function convertUnicode(emoji) {
 }
 export default memo(function EmojiHubItem({emoji, onSelectEmojiHandler}) {
     const emojiObj = convertUnicode(emoji)
-    return <li className="emoji-hub-set-item" onClick={() => onSelectEmojiHandler(emojiObj)}>
+    return <li data-active="true" className="emoji-hub-set-item" onClick={() => onSelectEmojiHandler(emojiObj)}>
       <span key={uuid4()}>{emojiObj.convertedEmoji}</span>
     </li>
 })
