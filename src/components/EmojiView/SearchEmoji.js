@@ -8,13 +8,14 @@ export default function SearchEmoji({
   handleSearch,
   setSearchTerm,
 }) {
+
   return (
     <div className="search-emoji">
       <input
         type={type}
         id={id}
         placeholder="Search"
-        value={value}
+        // value={value}
         onChange={handleSearch}
       />
       <label htmlFor={id}>
