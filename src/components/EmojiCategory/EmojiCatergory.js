@@ -1,7 +1,7 @@
 import EmojiCategoryItem from './EmojiCategoryItem'
 import "../../App.css"
 
-export default function EmojiCategory({categories, activeLink="frequently used", onClickScrollTo}) {
+export default function EmojiCategory({categories, activeLink, onClickScrollTo}) {
 
     return <div className='emoji-categories'>
         <ul>

@@ -13,8 +13,9 @@ function App() {
   const [allEmoji, setAllEmoji] = useState([]);
   const [frequentlyUsed, setFrequentlyUsed] = useState(JSON.parse(localStorage.getItem('frequently')) ?? initialfrequentlyUsed)
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeLink, setActiveLink] = useState();
-  const [clickedCategory, setClickedCategory] = useState();
+  
+  const [activeLink, setActiveLink] = useState(initialCategories[0].categoryName);
+  const [clickedCategory, setClickedCategory] = useState(initialCategories[0].categoryName);
 
   const [selectedEmoji, setSelectedEmoji] = useState({})
 
@@ -22,7 +23,6 @@ function App() {
     fetch("https://emojihub.herokuapp.com/api/all")
       .then((response) => response.json())
       .then((result) => {
-        console.log(result)
         const emojis = result.filter(res => !res.name.includes("type-"))
         setAllEmoji(emojis);
         setCategories(initialCategories);
@@ -36,6 +36,7 @@ function App() {
   }, [frequentlyUsed])
 
   const onClickScrollTo = useCallback((categoryItem) => {
+    console.log(categoryItem)
     setClickedCategory(categoryItem);
   }, [])
 
@@ -65,6 +66,7 @@ function App() {
             setActiveLink={setActiveLink}
             clickedCategory={clickedCategory}
             onSelectEmojiHandler={onSelectEmojiHandler}
+            setClickedCategory={setClickedCategory}
           />
         </>
       )}
