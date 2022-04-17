@@ -1,49 +1,61 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
+import debounce from "lodash.debounce";
 import EmojiCategory from "./components/EmojiCategory/EmojiCatergory";
 import EmojiHub from "./components/EmojiHub/EmojiHub";
 import EmojiView from "./components/EmojiView/EmojiView";
 import EmojiHubSearchResult from "./components/EmojiHubSearchResult/EmojiHubSearchResult";
-import {initialCategories, initialfrequentlyUsed} from './components/initialEmojiData'
+import {
+  initialCategories,
+  initialfrequentlyUsed,
+} from "./components/initialEmojiData";
 import frequentlyUsedLRU from "./components/EmojiHub/frequentlyUsedLRU";
 
 import "./App.css";
-import { useCallback, useEffect, useState } from "react";
 
 function App() {
   const [categories, setCategories] = useState([]);
   const [allEmoji, setAllEmoji] = useState([]);
-  const [frequentlyUsed, setFrequentlyUsed] = useState(JSON.parse(localStorage.getItem('frequently')) ?? initialfrequentlyUsed)
+  const [frequentlyUsed, setFrequentlyUsed] = useState(
+    JSON.parse(localStorage.getItem("frequently")) ?? initialfrequentlyUsed
+  );
   const [searchTerm, setSearchTerm] = useState("");
   
   const [activeLink, setActiveLink] = useState(initialCategories[0].categoryName);
   const [clickedCategory, setClickedCategory] = useState(initialCategories[0].categoryName);
 
-  const [selectedEmoji, setSelectedEmoji] = useState({})
+  const [selectedEmoji, setSelectedEmoji] = useState({});
 
   useEffect(() => {
     fetch("https://emojihub.herokuapp.com/api/all")
       .then((response) => response.json())
       .then((result) => {
-        const emojis = result.filter(res => !res.name.includes("type-"))
+        const emojis = result.filter((res) => !res.name.includes("type-"));
         setAllEmoji(emojis);
         setCategories(initialCategories);
       })
       .catch((err) => console.error(err));
+      
+      return () => debouncedChangeHandler.cancel();
   }, []);
 
-  const onSelectEmojiHandler = useCallback((convertedSelectedEmoji) => {
-    frequentlyUsedLRU(frequentlyUsed, {...convertedSelectedEmoji})
-      setSelectedEmoji({...convertedSelectedEmoji})
-  }, [frequentlyUsed])
+  const onSelectEmojiHandler = useCallback(
+    (convertedSelectedEmoji) => {
+      frequentlyUsedLRU(frequentlyUsed, { ...convertedSelectedEmoji });
+      setSelectedEmoji({ ...convertedSelectedEmoji });
+    },
+    [frequentlyUsed]
+  );
 
   const onClickScrollTo = useCallback((categoryItem) => {
     console.log(categoryItem)
     setClickedCategory(categoryItem);
-  }, [])
+  }, []);
 
   const handleSearch = (event) => {
-  
     setSearchTerm(event.target.value);
   };
+
+  const debouncedChangeHandler = useMemo(() => debounce(handleSearch, 300), []);
   const searchedEmojis = allEmoji.filter(
     (emoji) =>
       emoji.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -52,7 +64,7 @@ function App() {
 
   return (
     <div className="App">
-      {!searchTerm && (
+      {!searchTerm ? (
         <>
           <EmojiCategory
             activeLink={activeLink}
@@ -68,21 +80,27 @@ function App() {
             onSelectEmojiHandler={onSelectEmojiHandler}
             setClickedCategory={setClickedCategory}
           />
-        </>
-      )}
-      {searchTerm && (
-        <>
-          <EmojiCategory
-            categories={[
-              { id: 10, categoryName: "Search Results", iconName: "SearchIcon" }
-            ]}
-            activeLink="Search Results"
-          />
-          <EmojiHubSearchResult searchedEmojis={searchedEmojis} onSelectEmojiHandler={onSelectEmojiHandler}/>
-        </>
-      )}
+        </> ) :
+         <>
+         <EmojiCategory
+           categories={[
+             {
+               id: 10,
+               categoryName: "Search Results",
+               iconName: "SearchIcon",
+             },
+           ]}
+           activeLink="Search Results"
+         />
+         <EmojiHubSearchResult
+           searchedEmojis={searchedEmojis}
+           onSelectEmojiHandler={onSelectEmojiHandler}
+         />
+       </>
+       }
+      
       <EmojiView
-        handleSearch={handleSearch}
+        handleSearch={debouncedChangeHandler}
         value={searchTerm}
         setSearchTerm={setSearchTerm}
         selectedEmoji={selectedEmoji}
