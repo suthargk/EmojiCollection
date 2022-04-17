@@ -9,6 +9,7 @@ export default memo(function EmojiHubList({
   emojiHubRef,
   setActiveLink,
   clickedCategory,
+  setClickedCategory,
   onSelectEmojiHandler,
 }) {
   const emojiHubListRef = useRef();
@@ -16,9 +17,8 @@ export default memo(function EmojiHubList({
     const callbackObserver = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log(category.categoryName)
           setActiveLink(category.categoryName);
-
+          setClickedCategory("")
         }
       });
     };
@@ -30,9 +30,10 @@ export default memo(function EmojiHubList({
     const observer = new IntersectionObserver(callbackObserver, option);
     observer.observe(emojiHubListRef.current);
     if (clickedCategory === category.categoryName) {
+      console.log(clickedCategory, "->", category.categoryName)
       emojiHubListRef.current.scrollIntoView();
     }
-  }, [emojiHubListRef, emojiHubRef, setActiveLink, clickedCategory, category]);
+  }, [emojiHubListRef, emojiHubRef, setActiveLink, clickedCategory, setClickedCategory, category]);
   return (
     <div className="emoji-hub-set-main" ref={emojiHubListRef}>
       <div className="emoji-hub-set-title">{category.categoryName}</div>

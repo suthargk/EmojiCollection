@@ -19,8 +19,9 @@ function App() {
     JSON.parse(localStorage.getItem("frequently")) ?? initialfrequentlyUsed
   );
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeLink, setActiveLink] = useState();
-  const [clickedCategory, setClickedCategory] = useState();
+  
+  const [activeLink, setActiveLink] = useState(initialCategories[0].categoryName);
+  const [clickedCategory, setClickedCategory] = useState(initialCategories[0].categoryName);
 
   const [selectedEmoji, setSelectedEmoji] = useState({});
 
@@ -46,6 +47,7 @@ function App() {
   );
 
   const onClickScrollTo = useCallback((categoryItem) => {
+    console.log(categoryItem)
     setClickedCategory(categoryItem);
   }, []);
 
@@ -76,6 +78,7 @@ function App() {
             setActiveLink={setActiveLink}
             clickedCategory={clickedCategory}
             onSelectEmojiHandler={onSelectEmojiHandler}
+            setClickedCategory={setClickedCategory}
           />
         </> ) :
          <>
