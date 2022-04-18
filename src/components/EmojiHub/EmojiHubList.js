@@ -27,6 +27,9 @@ export default memo(function EmojiHubList({
       rootMargin: "0px 0px -100% 0px",
       threshold: 0,
     };
+    
+    if(category.categoryName === "frequently used") option.rootMargin = "0px 0px -50% 0px";
+
     const observer = new IntersectionObserver(callbackObserver, option);
     observer.observe(emojiHubListRef.current);
     if (clickedCategory === category.categoryName) {
