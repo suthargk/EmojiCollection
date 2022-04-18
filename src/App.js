@@ -47,7 +47,6 @@ function App() {
   );
 
   const onClickScrollTo = useCallback((categoryItem) => {
-    console.log(categoryItem)
     setClickedCategory(categoryItem);
   }, []);
 

@@ -33,7 +33,6 @@ export default memo(function EmojiHubList({
     const observer = new IntersectionObserver(callbackObserver, option);
     observer.observe(emojiHubListRef.current);
     if (clickedCategory === category.categoryName) {
-      console.log(clickedCategory, "->", category.categoryName)
       emojiHubListRef.current.scrollIntoView();
     }
   }, [emojiHubListRef, emojiHubRef, setActiveLink, clickedCategory, setClickedCategory, category]);
