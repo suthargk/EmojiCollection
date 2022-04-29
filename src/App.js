@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import debounce from "lodash.debounce";
+import { emojiData } from "./emoji-data";
 import EmojiCategory from "./components/EmojiCategory/EmojiCatergory";
 import EmojiHub from "./components/EmojiHub/EmojiHub";
 import EmojiView from "./components/EmojiView/EmojiView";
@@ -32,16 +33,22 @@ function App() {
         const emojis = result.filter((res) => !res.name.includes("type-"));
         setAllEmoji(emojis);
         setCategories(initialCategories);
+        setSelectedEmoji({name: 'grinning face', category: 'smileys and people', convertedEmoji: "😀"})
       })
-      .catch((err) => console.error(err));
+      .catch(() => {
+        const emojis = emojiData.filter((res) => !res.name.includes("type-"));
+        setAllEmoji(emojis);
+        setCategories(initialCategories);
+        setSelectedEmoji({name: 'grinning face', category: 'smileys and people', convertedEmoji: "😀"})
+      });
       
-      return () => debouncedChangeHandler.cancel();
   }, []);
 
   const onSelectEmojiHandler = useCallback(
     (convertedSelectedEmoji) => {
       frequentlyUsedLRU(frequentlyUsed, { ...convertedSelectedEmoji });
-      setSelectedEmoji({ ...convertedSelectedEmoji });
+      setSelectedEmoji({ ...convertedSelectedEmoji});
+      // localStorage.setItem('previous-selected-emoji', selectedEmoji.PreviousSelectedEmoji)
     },
     [frequentlyUsed]
   );

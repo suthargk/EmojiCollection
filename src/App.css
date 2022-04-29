@@ -176,7 +176,6 @@ li {
   display: none;
   position: absolute;
   font-size: 14px;
-  z-index: 2;
   top: -50%;
   padding: 8px 10px;
   border-radius: 5px;

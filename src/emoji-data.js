@@ -1,4 +1,4 @@
-[
+export const emojiData =  [
   {
     "name": "grinning face",
     "category": "smileys and people",
