@@ -14,6 +14,7 @@ import frequentlyUsedLRU from "./components/EmojiHub/frequentlyUsedLRU";
 import "./App.css";
 
 function App() {
+  
   const [categories, setCategories] = useState([]);
   const [allEmoji, setAllEmoji] = useState([]);
   const [frequentlyUsed, setFrequentlyUsed] = useState(
